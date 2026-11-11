@@ -130,7 +130,15 @@ export const CULTURAL_ENDPOINTS: CulturalEndpoint[] = [
   { path: "/v1/balance", name: "Balance", desc: "Check your RASSPay balance + escrow.", price: "free" },
 ];
 
-export const CULTURAL_API_REVENUE_SHARE = { artist: 70, raas: 30 };
+/**
+ * Revenue share — all 100% to the artist.
+ *
+ * RAAS charges a flat monthly tier fee for the infrastructure
+ * (see LEAGUES). It takes NO cut of artist revenue from the Cultural API,
+ * AI Voice generations, or RAAS Records sample sales. The artist keeps
+ * everything they earn from their culture.
+ */
+export const CULTURAL_API_REVENUE_SHARE = { artist: 100, raas: 0 };
 
 export const CULTURAL_API_RECENT_SALES = [
   { endpoint: "/v1/dubloop", buyer: "studio23", amount: 9.4, ts: "2h ago" },
@@ -301,8 +309,16 @@ export const AI_VOICE_TOPICS_BLOCKED = [
   "disrespect to elders",
 ];
 
-export const AI_VOICE_REVENUE_SPLIT_FAN = { artist: 65, raas: 20, compute: 15 };
-export const AI_VOICE_REVENUE_SPLIT_ARTIST = { artist: 70, raas: 30 };
+/**
+ * AI Voice revenue — 100% to the artist on both fan-side and artist-side.
+ *
+ * The fan pays $0.50 per generation. The full $0.50 flows to the artist
+ * (after RASSPay's standard payment-processing fee, which is separate
+ * from a platform cut). RAAS covers GPU compute costs out of the monthly
+ * tier fee the artist already pays.
+ */
+export const AI_VOICE_REVENUE_SPLIT_FAN = { artist: 100, raas: 0, compute: 0 };
+export const AI_VOICE_REVENUE_SPLIT_ARTIST = { artist: 100, raas: 0 };
 
 export const AI_VOICE_PRICE_PER_GEN = 0.5; // fan side
 

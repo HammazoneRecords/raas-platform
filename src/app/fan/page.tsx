@@ -135,7 +135,7 @@ export default function FanDashboardPage() {
         <LinkCard
           href="/fan/ai-voice-generator"
           title="Suno for Yardies — generate a song with an artist's official AI voice →"
-          desc="$0.50 per generation. Artist gets 65%."
+          desc="$0.50 per generation. 100% goes to the artist."
           accent="#EC4899"
         />
       </div>

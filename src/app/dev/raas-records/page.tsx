@@ -100,7 +100,7 @@ export default function RaasRecordsBuyerPage() {
           <div className="flex items-start gap-3 rounded-md border border-white/5 bg-white/[0.015] p-3">
             <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-[#fbbf24]" />
             <div>
-              <strong className="text-foreground">Revenue share:</strong> Original artist receives 60% of every sample sale. RAAS retains 40%.
+              <strong className="text-foreground">Revenue share:</strong> Original artist receives 100% of every sample sale. RAAS takes no cut — platform cost is covered by the buyer&apos;s subscription tier.
             </div>
           </div>
           <div className="flex items-start gap-3 rounded-md border border-white/5 bg-white/[0.015] p-3">

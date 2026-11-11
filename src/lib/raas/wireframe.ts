@@ -164,7 +164,7 @@ export const PAGES: WireframePage[] = [
     navLinks: ["cultural_api_dev_portal"],
     navBar: ["artist_dashboard", "artist_brand_extension", "artist_cultural_api", "artist_ai_voice", "artist_community", "artist_territory_cert", "artist_analytics", "artist_revenue", "artist_rassline", "artist_settings"],
     route: "/artist/cultural-api",
-    blurb: "Six cultural endpoints. 70/30 split. Live revenue.",
+    blurb: "Six cultural endpoints. 100% of revenue to you. Live revenue.",
   },
   {
     id: "artist_ai_voice",

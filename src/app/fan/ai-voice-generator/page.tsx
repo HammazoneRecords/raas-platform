@@ -10,7 +10,6 @@ import {
   ARTISTS,
   AI_VOICE_TOPICS_ALLOWED,
   AI_VOICE_PRICE_PER_GEN,
-  AI_VOICE_REVENUE_SPLIT_FAN,
   HARDWARE_STATUS,
 } from "@/lib/raas/mock-data";
 
@@ -42,16 +41,16 @@ export default function FanAiVoiceGeneratorPage() {
       <PageHeader
         eyebrow="Fan · Pioneer feature"
         title="Suno for Yardies"
-        sub="Generate personalized songs with an artist's official AI voice. The artist sets the boundaries — and gets 65% of every generation."
+        sub="Generate personalized songs with an artist's official AI voice. The artist sets the boundaries — and gets 100% of what you pay."
         accent="#EC4899"
         right={<Pill color="#A855F7">Pioneer</Pill>}
       />
 
       <div className="mb-6 grid grid-cols-2 lg:grid-cols-4 gap-3">
         <StatCard label="Price per generation" value={`$${AI_VOICE_PRICE_PER_GEN.toFixed(2)}`} sub="via RASSPay" accent="#fbbf24" />
-        <StatCard label="Artist share" value={`${AI_VOICE_REVENUE_SPLIT_FAN.artist}%`} accent="#22C55E" />
-        <StatCard label="RAAS share" value={`${AI_VOICE_REVENUE_SPLIT_FAN.raas}%`} accent="#06B6D4" />
-        <StatCard label="Compute" value={`${AI_VOICE_REVENUE_SPLIT_FAN.compute}%`} sub="GPU cost" accent="#A855F7" />
+        <StatCard label="To the artist" value="100%" sub={`=$${AI_VOICE_PRICE_PER_GEN.toFixed(2)} per generation`} accent="#22C55E" />
+        <StatCard label="RAAS cut" value="$0.00" sub="covered by artist's tier fee" accent="#06B6D4" />
+        <StatCard label="Compute" value="$0.00" sub="RAAS-funded" accent="#A855F7" />
       </div>
 
       {/* Hardware status banner */}
@@ -135,11 +134,9 @@ export default function FanAiVoiceGeneratorPage() {
 
         {/* Revenue split + artist boundaries */}
         <div className="space-y-6">
-          <Card title="Revenue split per generation">
+          <Card title="Revenue split per generation — 100% to the artist">
             <div className="flex h-3 overflow-hidden rounded-full bg-white/5">
-              <div style={{ width: `${AI_VOICE_REVENUE_SPLIT_FAN.artist}%`, background: "#22C55E" }} />
-              <div style={{ width: `${AI_VOICE_REVENUE_SPLIT_FAN.raas}%`, background: "#06B6D4" }} />
-              <div style={{ width: `${AI_VOICE_REVENUE_SPLIT_FAN.compute}%`, background: "#A855F7" }} />
+              <div style={{ width: "100%", background: "linear-gradient(90deg, #22C55E, #fbbf24)" }} />
             </div>
             <div className="mt-3 grid grid-cols-3 gap-2 text-[11px]">
               <div>
@@ -147,25 +144,28 @@ export default function FanAiVoiceGeneratorPage() {
                   <span className="h-2 w-2 rounded-full bg-[#22C55E]" /> Artist
                 </div>
                 <div className="font-mono-raas mt-1 text-[#22C55E]">
-                  ${((AI_VOICE_PRICE_PER_GEN * AI_VOICE_REVENUE_SPLIT_FAN.artist) / 100).toFixed(2)}
+                  ${AI_VOICE_PRICE_PER_GEN.toFixed(2)}
                 </div>
               </div>
               <div>
-                <div className="flex items-center gap-1.5">
-                  <span className="h-2 w-2 rounded-full bg-[#06B6D4]" /> RAAS
+                <div className="flex items-center gap-1.5 opacity-40">
+                  <span className="h-2 w-2 rounded-full bg-white/10" /> RAAS
                 </div>
-                <div className="font-mono-raas mt-1 text-[#06B6D4]">
-                  ${((AI_VOICE_PRICE_PER_GEN * AI_VOICE_REVENUE_SPLIT_FAN.raas) / 100).toFixed(2)}
+                <div className="font-mono-raas mt-1 text-white/40">
+                  $0.00
                 </div>
               </div>
               <div>
-                <div className="flex items-center gap-1.5">
-                  <span className="h-2 w-2 rounded-full bg-[#A855F7]" /> Compute
+                <div className="flex items-center gap-1.5 opacity-40">
+                  <span className="h-2 w-2 rounded-full bg-white/10" /> Compute
                 </div>
-                <div className="font-mono-raas mt-1 text-[#A855F7]">
-                  ${((AI_VOICE_PRICE_PER_GEN * AI_VOICE_REVENUE_SPLIT_FAN.compute) / 100).toFixed(2)}
+                <div className="font-mono-raas mt-1 text-white/40">
+                  $0.00
                 </div>
               </div>
+            </div>
+            <div className="mt-3 text-xs opacity-60">
+              Every dollar you pay flows straight to the artist. RAAS covers GPU compute costs out of the monthly tier fee the artist already pays — no hidden cut, no platform tax.
             </div>
           </Card>
 

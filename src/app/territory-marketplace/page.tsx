@@ -47,7 +47,7 @@ export default function TerritoryMarketplacePage() {
           ))}
         </div>
         <div className="mt-4 text-xs opacity-50">
-          Resale revenue is split between the original artist (60%) and RAAS (40%). The artist keeps the lion&apos;s share because they built the audience.
+          100% of resale revenue goes to the original artist. RAAS charges <strong className="text-foreground">no cut</strong> — the artist built the audience, the artist keeps the resale.
         </div>
       </Card>
 
@@ -72,8 +72,8 @@ export default function TerritoryMarketplacePage() {
       <div className="mb-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
         <StatCard label="Floor price" value="$50" sub="buy-back" accent="#EF4444" />
         <StatCard label="5yr+ ceiling" value="$6,500" sub="max resale" accent="#22C55E" />
-        <StatCard label="Artist share" value="60%" sub="of resale" accent="#fbbf24" />
-        <StatCard label="RAAS share" value="40%" sub="platform fee" accent="#06B6D4" />
+        <StatCard label="Artist keeps" value="100%" sub="of resale price" accent="#fbbf24" />
+        <StatCard label="RAAS cut" value="$0" sub="no platform fee" accent="#06B6D4" />
       </div>
 
       {/* Cross-links */}

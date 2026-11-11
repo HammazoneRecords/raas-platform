@@ -8,7 +8,6 @@ import { pageById } from "@/lib/raas/wireframe";
 import {
   AI_VOICE_TOPICS_ALLOWED,
   AI_VOICE_TOPICS_BLOCKED,
-  AI_VOICE_REVENUE_SPLIT_ARTIST,
   HARDWARE_STATUS,
 } from "@/lib/raas/mock-data";
 
@@ -47,8 +46,8 @@ export default function ArtistAiVoicePage() {
 
       <div className="mb-6 grid grid-cols-2 lg:grid-cols-4 gap-3">
         <StatCard label="Price per generation" value="$0.50" sub="paid by fan" accent="#fbbf24" />
-        <StatCard label="Your share" value={`${AI_VOICE_REVENUE_SPLIT_ARTIST.artist}%`} sub="of each gen" accent="#22C55E" />
-        <StatCard label="RAAS share" value={`${AI_VOICE_REVENUE_SPLIT_ARTIST.raas}%`} sub="platform" accent="#06B6D4" />
+        <StatCard label="Your share" value="100%" sub="=$0.50 per generation to you" accent="#22C55E" />
+        <StatCard label="RAAS cut" value="$0.00" sub="GPU compute covered by your tier fee" accent="#06B6D4" />
         <StatCard
           label="Hardware"
           value={HARDWARE_STATUS.ready ? "Live" : "Pending"}

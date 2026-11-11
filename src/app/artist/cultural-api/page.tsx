@@ -34,7 +34,7 @@ export default function ArtistCulturalApiPage() {
       <PageHeader
         eyebrow="Artist"
         title="Cultural API Monetization"
-        sub="Six cultural endpoints. 70/30 split. Live revenue. You own the culture — you should get paid when anyone uses it."
+        sub="Six cultural endpoints. 100% to you. Live revenue. You own the culture — you should get paid when anyone uses it."
         accent="#06B6D4"
         right={
           <Link
@@ -48,36 +48,33 @@ export default function ArtistCulturalApiPage() {
 
       <div className="mb-6 grid grid-cols-2 lg:grid-cols-4 gap-3">
         <StatCard label="Last 5 sales" value={`$${total.toFixed(2)}`} sub="trailing 48h" accent="#fbbf24" />
-        <StatCard label="Your share (70%)" value={`$${artistShare.toFixed(2)}`} sub="auto-released" accent="#22C55E" />
-        <StatCard label="RAAS share (30%)" value={`$${(total - artistShare).toFixed(2)}`} sub="platform fee" accent="#06B6D4" />
+        <StatCard label="Your share" value="100%" sub={`=$${artistShare.toFixed(2)} to you`} accent="#22C55E" />
+        <StatCard label="RAAS cut" value="$0.00" sub="covered by your monthly tier fee" accent="#06B6D4" />
         <StatCard label="Endpoints live" value={CULTURAL_ENDPOINTS.length} sub="all monetized" accent="#EC4899" />
       </div>
 
-      {/* Revenue split bar */}
-      <Card title="Revenue share" className="mb-6">
+      {/* Revenue share */}
+      <Card title="Revenue share — 100% to the artist" className="mb-6">
         <div className="flex h-3 overflow-hidden rounded-full bg-white/5">
           <div
             style={{
-              width: `${CULTURAL_API_REVENUE_SHARE.artist}%`,
-              background: "#22C55E",
-            }}
-          />
-          <div
-            style={{
-              width: `${CULTURAL_API_REVENUE_SHARE.raas}%`,
-              background: "#06B6D4",
+              width: "100%",
+              background: "linear-gradient(90deg, #22C55E, #fbbf24)",
             }}
           />
         </div>
         <div className="mt-3 flex items-center justify-between text-xs">
           <span className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-[#22C55E]" />
-            Artist {CULTURAL_API_REVENUE_SHARE.artist}%
+            Artist <span className="font-mono-raas text-[#22C55E]">100%</span>
           </span>
-          <span className="flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-[#06B6D4]" />
-            RAAS {CULTURAL_API_REVENUE_SHARE.raas}%
+          <span className="flex items-center gap-2 opacity-40">
+            <span className="h-2 w-2 rounded-full bg-white/10" />
+            RAAS <span className="font-mono-raas">0%</span>
           </span>
+        </div>
+        <div className="mt-3 text-xs opacity-60">
+          RAAS charges a flat monthly tier fee for the infrastructure. It takes <strong className="text-foreground">no cut</strong> of Cultural API revenue — every dollar a developer pays to call your endpoints flows to you.
         </div>
       </Card>
 
@@ -123,7 +120,7 @@ export default function ArtistCulturalApiPage() {
                   <td className="py-2.5 pr-3">{s.buyer}</td>
                   <td className="py-2.5 pr-3 font-mono-raas">${s.amount.toFixed(2)}</td>
                   <td className="py-2.5 pr-3 font-mono-raas text-[#22C55E]">
-                    ${(s.amount * 0.7).toFixed(2)}
+                    ${s.amount.toFixed(2)}
                   </td>
                   <td className="py-2.5 pr-3 text-xs opacity-60">{s.ts}</td>
                 </tr>

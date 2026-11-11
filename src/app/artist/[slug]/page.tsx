@@ -13,7 +13,7 @@ const INCLUDED = [
   { label: "Domain", desc: "Your own .ja web address, fully owned." },
   { label: "Site", desc: "Mobile-first artist site built on RAAS Layer 1." },
   { label: "Storefront", desc: "Merch, vinyl, digital — escrow-protected sales." },
-  { label: "Cultural API", desc: "Six endpoints, 70/30 revenue split, metered." },
+  { label: "Cultural API", desc: "Six endpoints, 100% of revenue to you, metered." },
   { label: "Fan data", desc: "First-party fan list you own. Not rented from a platform." },
   { label: "Inheritance", desc: "ADTL territories are heritable. Will it to whoever you choose." },
 ];
