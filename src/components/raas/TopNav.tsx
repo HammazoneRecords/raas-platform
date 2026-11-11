@@ -1,16 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { RoleSwitcher } from "./RoleSwitcher";
+import { usePathname, useRouter } from "next/navigation";
 import { useRole } from "@/lib/raas/role";
-import { ROLES, PAGES, PAGE_BY_ID } from "@/lib/raas/wireframe";
+import { ROLES } from "@/lib/raas/wireframe";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
 
-/**
- * Top navigation bar — sticky, dark, with logo (left), portal links (center),
- * role switcher (right). NO cookies.
- */
 const PORTAL_LINKS: { id: string; label: string; href: string }[] = [
   { id: "hub", label: "Hub", href: "/" },
   { id: "adtl_marketplace", label: "Marketplace", href: "/marketplace" },
@@ -21,8 +17,16 @@ const PORTAL_LINKS: { id: string; label: string; href: string }[] = [
 
 export function TopNav() {
   const pathname = usePathname();
-  const { role, hydrated } = useRole();
+  const router = useRouter();
+  const { role, user, hydrated, clearSession } = useRole();
   const roleMeta = ROLES[hydrated ? role : "public"];
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleLogout = () => {
+    clearSession();
+    setMenuOpen(false);
+    router.push("/");
+  };
 
   return (
     <header
@@ -52,7 +56,6 @@ export function TopNav() {
         {/* Portal links */}
         <nav className="hidden md:flex items-center gap-1 mx-auto">
           {PORTAL_LINKS.map((link) => {
-            // The hub "/" is special — only match exact "/".
             const active =
               link.href === "/"
                 ? pathname === "/"
@@ -76,19 +79,83 @@ export function TopNav() {
 
         <div className="flex-1 md:hidden" />
 
-        {/* Role indicator + switcher */}
+        {/* Auth area */}
         <div className="flex items-center gap-3">
-          <div className="hidden lg:flex items-center gap-2 rounded-full border border-white/10 px-3 py-1 text-[10px]">
-            <span
-              className="h-2 w-2 rounded-full"
-              style={{ background: roleMeta.color }}
-            />
-            <span className="opacity-50 uppercase tracking-wider">Role</span>
-            <span className="font-medium" style={{ color: roleMeta.color }}>
-              {roleMeta.label}
-            </span>
-          </div>
-          <RoleSwitcher compact />
+          {hydrated && user ? (
+            <div className="relative">
+              <button
+                onClick={() => setMenuOpen((o) => !o)}
+                className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] py-1 pl-1 pr-3 text-xs hover:bg-white/[0.06]"
+                aria-label="User menu"
+              >
+                <span
+                  className="flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-bold"
+                  style={{
+                    background: `${roleMeta.color}1a`,
+                    color: roleMeta.color,
+                    border: `1px solid ${roleMeta.color}33`,
+                  }}
+                >
+                  {roleMeta.glyph}
+                </span>
+                <span className="hidden sm:flex flex-col items-start leading-tight">
+                  <span className="font-medium max-w-[120px] truncate">
+                    {user.displayName}
+                  </span>
+                  <span
+                    className="text-[9px] uppercase tracking-wider"
+                    style={{ color: roleMeta.color }}
+                  >
+                    {roleMeta.label}
+                  </span>
+                </span>
+              </button>
+              {menuOpen && (
+                <>
+                  <div
+                    className="fixed inset-0 z-40"
+                    onClick={() => setMenuOpen(false)}
+                  />
+                  <div className="absolute right-0 top-full mt-2 w-64 rounded-xl border border-white/10 bg-[#0f0f17] p-2 shadow-xl z-50">
+                    <div className="px-3 py-2 border-b border-white/5 mb-2">
+                      <div className="text-xs font-medium truncate">{user.displayName}</div>
+                      <div className="text-[10px] opacity-60 font-mono-raas truncate">{user.email}</div>
+                    </div>
+                    <Link
+                      href="/maze"
+                      onClick={() => setMenuOpen(false)}
+                      className="block rounded-md px-3 py-2 text-xs hover:bg-white/5"
+                    >
+                      Maze visualizer →
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="block w-full rounded-md px-3 py-2 text-left text-xs text-[#EF4444] hover:bg-[#EF4444]/[0.06]"
+                    >
+                      Sign out
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          ) : hydrated ? (
+            <div className="flex items-center gap-2">
+              <Link
+                href="/login"
+                className="rounded-md border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs font-medium hover:bg-white/[0.06]"
+              >
+                Sign in
+              </Link>
+              <Link
+                href="/signup"
+                className="rounded-md bg-[#fbbf24] px-3 py-1.5 text-xs font-semibold text-black hover:bg-[#f59e0b] hidden sm:block"
+              >
+                Sign up
+              </Link>
+            </div>
+          ) : (
+            <div className="h-7 w-16 rounded-md bg-white/[0.03] animate-pulse" />
+          )}
         </div>
       </div>
     </header>
