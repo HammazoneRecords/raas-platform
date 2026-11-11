@@ -17,7 +17,10 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "RAAS — Reggae As A Service · MindWave JA",
+  title: {
+    default: "RAAS — Reggae As A Service · MindWave JA",
+    template: "%s · RAAS",
+  },
   description:
     "PayPal for reggae · Starlink for culture · Amazon for riddim. Own your music. Own your fans. Own your digital domain.",
   keywords: [
