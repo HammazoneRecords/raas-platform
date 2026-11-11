@@ -10,10 +10,10 @@ import { RASSPAY_MODES, RECENT_TRANSACTIONS } from "@/lib/raas/mock-data";
 const page = pageById("artist_revenue")!;
 
 const ROYALTY_SPLITS = [
-  { track: "BabylonFall (2026)", dsp: "Spotify", amount: 421.84, share: 78 },
-  { track: "BabylonFall (2026)", dsp: "Apple Music", amount: 218.42, share: 78 },
-  { track: "YaadLife EP", dsp: "Spotify", amount: 612.18, share: 78 },
-  { track: "YaadLife EP", dsp: "YouTube Music", amount: 88.12, share: 78 },
+  { track: "BabylonFall (2026)", dsp: "Spotify", amount: 421.84, share: 100 },
+  { track: "BabylonFall (2026)", dsp: "Apple Music", amount: 218.42, share: 100 },
+  { track: "YaadLife EP", dsp: "Spotify", amount: 612.18, share: 100 },
+  { track: "YaadLife EP", dsp: "YouTube Music", amount: 88.12, share: 100 },
 ];
 
 const WITHDRAWAL_METHODS = [
@@ -57,7 +57,7 @@ export default function ArtistRevenuePage() {
         <StatCard label="RASSPay escrow" value={`$${escrowBalance.toLocaleString()}`} sub="in 60-day window" accent="#fbbf24" />
         <StatCard label="Available balance" value={`$${availableBalance.toLocaleString()}`} sub="ready to withdraw" accent="#22C55E" />
         <StatCard label="Mode" value="Escrow" sub="default" accent="#06B6D4" />
-        <StatCard label="Royalty share" value="78%" sub="of DSP revenue" accent="#EC4899" />
+        <StatCard label="Royalty share" value="100%" sub="RAAS takes no cut of DSP revenue" accent="#EC4899" />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">

@@ -70,8 +70,8 @@ export default function HubPage() {
             />
             <StatCard
               label="You Keep"
-              value="78%"
-              sub="Of your fan revenue"
+              value="100%"
+              sub="Of your fan revenue — RAAS charges a flat tier fee, not a revenue cut"
               accent="#fbbf24"
             />
           </div>
