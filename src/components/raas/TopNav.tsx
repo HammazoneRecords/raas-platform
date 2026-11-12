@@ -122,6 +122,13 @@ export function TopNav() {
                       <div className="text-[10px] opacity-60 font-mono-raas truncate">{user.email}</div>
                     </div>
                     <Link
+                      href="/settings"
+                      onClick={() => setMenuOpen(false)}
+                      className="block rounded-md px-3 py-2 text-xs hover:bg-white/5"
+                    >
+                      Account settings →
+                    </Link>
+                    <Link
                       href="/maze"
                       onClick={() => setMenuOpen(false)}
                       className="block rounded-md px-3 py-2 text-xs hover:bg-white/5"

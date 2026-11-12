@@ -16,6 +16,7 @@ export function Card({
   className,
   bodyClassName,
   footer,
+  accent,
 }: {
   title?: React.ReactNode;
   action?: React.ReactNode;
@@ -23,6 +24,7 @@ export function Card({
   className?: string;
   bodyClassName?: string;
   footer?: React.ReactNode;
+  accent?: string;
 }) {
   return (
     <div
@@ -30,6 +32,7 @@ export function Card({
         "rounded-xl border border-white/5 bg-white/[0.02] p-5",
         className
       )}
+      style={accent ? { borderLeft: `3px solid ${accent}` } : undefined}
     >
       {(title || action) && (
         <div className="mb-3 flex items-center justify-between gap-3">

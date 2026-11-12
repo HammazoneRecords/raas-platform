@@ -368,7 +368,7 @@ export const PAGES: WireframePage[] = [
     zone: "admin",
     depth: 2,
     navLinks: ["admin_big_rass_data", "admin_ai_agents", "admin_backup_failover", "admin_manufacturing_partners", "admin_enterprise_leads", "admin_partner_onboarding", "admin_compliance", "admin_audit_log"],
-    navBar: ["admin_console", "admin_big_rass_data", "admin_ai_agents", "admin_backup_failover", "admin_manufacturing_partners", "admin_enterprise_leads", "admin_compliance", "admin_audit_log"],
+    navBar: ["admin_console", "admin_big_rass_data", "admin_ai_agents", "admin_backup_failover", "admin_manufacturing_partners", "admin_enterprise_leads", "admin_compliance", "admin_audit_log", "admin_deliverables"],
     route: "/admin",
     blurb: "System health, audit log, tranche deployment, quick links.",
   },
@@ -379,7 +379,7 @@ export const PAGES: WireframePage[] = [
     zone: "admin",
     depth: 3,
     navLinks: ["admin_console"],
-    navBar: ["admin_console", "admin_big_rass_data", "admin_ai_agents", "admin_backup_failover", "admin_manufacturing_partners", "admin_enterprise_leads", "admin_compliance", "admin_audit_log"],
+    navBar: ["admin_console", "admin_big_rass_data", "admin_ai_agents", "admin_backup_failover", "admin_manufacturing_partners", "admin_enterprise_leads", "admin_compliance", "admin_audit_log", "admin_deliverables"],
     route: "/admin/big-rass-data",
     blurb: "Platform-wide metrics, funnel, growth, top territories.",
   },
@@ -390,7 +390,7 @@ export const PAGES: WireframePage[] = [
     zone: "admin",
     depth: 3,
     navLinks: ["artist_ai_voice"],
-    navBar: ["admin_console", "admin_big_rass_data", "admin_ai_agents", "admin_backup_failover", "admin_manufacturing_partners", "admin_enterprise_leads", "admin_compliance", "admin_audit_log"],
+    navBar: ["admin_console", "admin_big_rass_data", "admin_ai_agents", "admin_backup_failover", "admin_manufacturing_partners", "admin_enterprise_leads", "admin_compliance", "admin_audit_log", "admin_deliverables"],
     route: "/admin/ai-agents",
     blurb: "Patois LLM, brand conceptor, ADTL deployer, fan bot. 4× RTX 4090.",
   },
@@ -401,7 +401,7 @@ export const PAGES: WireframePage[] = [
     zone: "admin",
     depth: 3,
     navLinks: ["admin_console"],
-    navBar: ["admin_console", "admin_big_rass_data", "admin_ai_agents", "admin_backup_failover", "admin_manufacturing_partners", "admin_enterprise_leads", "admin_compliance", "admin_audit_log"],
+    navBar: ["admin_console", "admin_big_rass_data", "admin_ai_agents", "admin_backup_failover", "admin_manufacturing_partners", "admin_enterprise_leads", "admin_compliance", "admin_audit_log", "admin_deliverables"],
     route: "/admin/backup-failover",
     blurb: "Primary + backup, 3-2-1 strategy, failover history.",
   },
@@ -412,7 +412,7 @@ export const PAGES: WireframePage[] = [
     zone: "admin",
     depth: 3,
     navLinks: ["artist_brand_extension", "admin_partner_onboarding"],
-    navBar: ["admin_console", "admin_big_rass_data", "admin_ai_agents", "admin_backup_failover", "admin_manufacturing_partners", "admin_enterprise_leads", "admin_compliance", "admin_audit_log"],
+    navBar: ["admin_console", "admin_big_rass_data", "admin_ai_agents", "admin_backup_failover", "admin_manufacturing_partners", "admin_enterprise_leads", "admin_compliance", "admin_audit_log", "admin_deliverables"],
     route: "/admin/manufacturing-partners",
     blurb: "Sun Island, Rebel13, Twins of Twins + local printery.",
   },
@@ -423,7 +423,7 @@ export const PAGES: WireframePage[] = [
     zone: "admin",
     depth: 3,
     navLinks: ["admin_console"],
-    navBar: ["admin_console", "admin_big_rass_data", "admin_ai_agents", "admin_backup_failover", "admin_manufacturing_partners", "admin_enterprise_leads", "admin_compliance", "admin_audit_log"],
+    navBar: ["admin_console", "admin_big_rass_data", "admin_ai_agents", "admin_backup_failover", "admin_manufacturing_partners", "admin_enterprise_leads", "admin_compliance", "admin_audit_log", "admin_deliverables"],
     route: "/admin/enterprise-leads",
     blurb: "Enterprise League pipeline: 5M+ YT AND 500K+ Spotify.",
   },
@@ -434,7 +434,7 @@ export const PAGES: WireframePage[] = [
     zone: "admin",
     depth: 3,
     navLinks: ["admin_console"],
-    navBar: ["admin_console", "admin_big_rass_data", "admin_ai_agents", "admin_backup_failover", "admin_manufacturing_partners", "admin_enterprise_leads", "admin_compliance", "admin_audit_log"],
+    navBar: ["admin_console", "admin_big_rass_data", "admin_ai_agents", "admin_backup_failover", "admin_manufacturing_partners", "admin_enterprise_leads", "admin_compliance", "admin_audit_log", "admin_deliverables"],
     route: "/admin/partner-onboarding",
     blurb: "Checklist, pending applications, approved partners.",
   },
@@ -445,7 +445,7 @@ export const PAGES: WireframePage[] = [
     zone: "admin",
     depth: 3,
     navLinks: ["admin_console"],
-    navBar: ["admin_console", "admin_big_rass_data", "admin_ai_agents", "admin_backup_failover", "admin_manufacturing_partners", "admin_enterprise_leads", "admin_compliance", "admin_audit_log"],
+    navBar: ["admin_console", "admin_big_rass_data", "admin_ai_agents", "admin_backup_failover", "admin_manufacturing_partners", "admin_enterprise_leads", "admin_compliance", "admin_audit_log", "admin_deliverables"],
     route: "/admin/compliance",
     blurb: "KYC/AML, PDPA, GDPR, no cookies, minimum data.",
   },
@@ -456,12 +456,35 @@ export const PAGES: WireframePage[] = [
     zone: "admin",
     depth: 3,
     navLinks: ["admin_console"],
-    navBar: ["admin_console", "admin_big_rass_data", "admin_ai_agents", "admin_backup_failover", "admin_manufacturing_partners", "admin_enterprise_leads", "admin_compliance", "admin_audit_log"],
+    navBar: ["admin_console", "admin_big_rass_data", "admin_ai_agents", "admin_backup_failover", "admin_manufacturing_partners", "admin_enterprise_leads", "admin_compliance", "admin_audit_log", "admin_deliverables"],
     route: "/admin/audit-log",
     blurb: "50 mock entries, filters, security alerts, export.",
   },
+  {
+    id: "admin_deliverables",
+    title: "Deliverables & Hierarchy",
+    portal: "admin",
+    zone: "admin",
+    depth: 2,
+    navLinks: ["admin_console", "admin_enterprise_leads", "admin_manufacturing_partners", "admin_partner_onboarding"],
+    navBar: ["admin_console", "admin_deliverables", "admin_big_rass_data", "admin_ai_agents", "admin_backup_failover", "admin_manufacturing_partners", "admin_enterprise_leads", "admin_compliance", "admin_audit_log", "admin_deliverables"],
+    route: "/admin/deliverables",
+    blurb: "Stakeholder hierarchy, per-role deliverables, supplier on-time & logistics board.",
+  },
 
-  // ── ARCHIVIST (2) ────────────────────────────────────────────────────────
+  // ── ACCOUNT (all logged-in roles) ──────────────────────────────────────
+  {
+    id: "account_settings",
+    title: "Account Settings",
+    portal: "artist",
+    zone: "settings",
+    depth: 1,
+    navLinks: [],
+    navBar: [],
+    route: "/settings",
+    blurb: "Profile, password, notifications, session — for every logged-in role.",
+  },
+
   {
     id: "archivist_console",
     title: "Archivist Console",
@@ -509,6 +532,14 @@ function buildPermissionTuples(): PermissionTuple[] {
   };
 
   for (const p of PAGES) {
+    // Account settings: every logged-in role can view; admin can edit
+    if (p.id === "account_settings") {
+      for (const r of ROLE_ORDER) {
+        if (r !== "public") add(p.id, "viewer", r);
+      }
+      add(p.id, "editor", "admin");
+      continue;
+    }
     switch (p.portal) {
       case "public": {
         // Every role can view public pages

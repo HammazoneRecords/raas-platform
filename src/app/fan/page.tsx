@@ -18,7 +18,7 @@ export default function FanDashboardPage() {
   const { allowed, denied } = usePageAccess("fan_dashboard", { pageLabel: "Fan Dashboard" });
   if (!allowed) return denied;
 
-  const nextRank = FAN_RANKS.find((r) => r.threshold.replace(/[$,]/g, "") > FAN_STATS.monthlySupport * 100);
+  const nextRank = FAN_RANKS.find((r) => parseFloat(r.threshold.replace(/[$,/]/g, "")) > FAN_STATS.monthlySupport);
 
   return (
     <PageShell

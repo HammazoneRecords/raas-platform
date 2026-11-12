@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { PageShell, PageHeader } from "@/components/raas/PageShell";
 import { Card, Pill } from "@/components/raas/Card";
@@ -11,9 +12,23 @@ const page = pageById("artist_settings")!;
 
 export default function ArtistSettingsPage() {
   const { allowed, denied } = usePageAccess("artist_settings", { pageLabel: "Artist Settings" });
-  if (!allowed) return denied;
 
   const artist = ARTISTS[0];
+  const [notifications, setNotifications] = useState<Record<string, boolean>>({
+    "New fan subscribes": true,
+    "Merch sale": true,
+    "Cultural API sale": true,
+    "AI Voice generation": false,
+    "RASSPay escrow release": true,
+    "60-day claim dispute": true,
+    "Weekly revenue digest": true,
+    "Platform announcements": false,
+  });
+
+  const toggle = (label: string) =>
+    setNotifications((prev) => ({ ...prev, [label]: !prev[label] }));
+
+  if (!allowed) return denied;
 
   return (
     <PageShell
@@ -127,32 +142,28 @@ export default function ArtistSettingsPage() {
         {/* Notifications */}
         <Card title="Notification preferences">
           <div className="space-y-2 text-xs">
-            {[
-              { label: "New fan subscribes", on: true },
-              { label: "Merch sale", on: true },
-              { label: "Cultural API sale", on: true },
-              { label: "AI Voice generation", on: false },
-              { label: "RASSPay escrow release", on: true },
-              { label: "60-day claim dispute", on: true },
-              { label: "Weekly revenue digest", on: true },
-              { label: "Platform announcements", on: false },
-            ].map((n) => (
+            {Object.entries(notifications).map(([label, on]) => (
               <div
-                key={n.label}
+                key={label}
                 className="flex items-center justify-between rounded-md border border-white/5 bg-white/[0.015] p-3"
               >
-                <span>{n.label}</span>
-                <span
-                  className={`relative h-5 w-9 rounded-full transition-colors ${
-                    n.on ? "bg-[#22C55E]" : "bg-white/10"
+                <span>{label}</span>
+                <button
+                  type="button"
+                  role="switch"
+                  aria-checked={on}
+                  aria-label={`Toggle ${label}`}
+                  onClick={() => toggle(label)}
+                  className={`relative h-5 w-9 shrink-0 rounded-full transition-colors ${
+                    on ? "bg-[#22C55E]" : "bg-white/10"
                   }`}
                 >
                   <span
                     className={`absolute top-0.5 h-4 w-4 rounded-full bg-white transition-all ${
-                      n.on ? "left-[18px]" : "left-0.5"
+                      on ? "left-[18px]" : "left-0.5"
                     }`}
                   />
-                </span>
+                </button>
               </div>
             ))}
           </div>

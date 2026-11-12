@@ -627,3 +627,138 @@ export const FAN_SUPPORTED_ARTISTS = [
   { slug: "lashana", name: "Lashana", tier: "Roots", amount: 5 },
   { slug: "rebel-roots", name: "Rebel Roots", tier: "Roots", amount: 5 },
 ];
+
+// ---------------------------------------------------------------------------
+// STAKEHOLDER HIERARCHY ("the heir") — who reports to whom, RAAS structure
+// ---------------------------------------------------------------------------
+
+export interface HierarchyNode {
+  id: string;
+  label: string;
+  role: string; // RoleId or "founder" | "supplier"
+  title: string;
+  reportsTo: string | null;
+  color: string;
+}
+
+export const HIERARCHY: HierarchyNode[] = [
+  { id: "founder",     label: "Shan (Founder & CEO)", role: "founder",   title: "Owns vision, cap table, final sign-off on every tranche", reportsTo: null, color: "#fbbf24" },
+  { id: "admin",       label: "Admin / Ops",          role: "admin",     title: "Runs the platform day-to-day on the founder's mandate",  reportsTo: "founder", color: "#0EA5E9" },
+  { id: "artist",      label: "Artists",              role: "artist",    title: "Rights holders — the platform exists to serve them",    reportsTo: "admin", color: "#22C55E" },
+  { id: "fan",         label: "Fans / Patrons",       role: "fan",       title: "Subscribers and buyers — revenue enters here",           reportsTo: "artist", color: "#EC4899" },
+  { id: "b2b_dev",     label: "B2B Developers",       role: "b2b_dev",   title: "License the Cultural API and RAAS Records catalogue",    reportsTo: "admin", color: "#06B6D4" },
+  { id: "investor",    label: "Investors",            role: "investor",  title: "Capital in five KPI-gated tranches",                     reportsTo: "founder", color: "#EF4444" },
+  { id: "archivist",   label: "Archivists",           role: "archivist", title: "Heritage custody — clear rights before anything ships",  reportsTo: "admin", color: "#A855F7" },
+  { id: "supplier",    label: "Suppliers & Manufacturers", role: "supplier", title: "Sun Island, Rebel13, Twins of Twins, Kingston Printery", reportsTo: "admin", color: "#94A3B8" },
+  { id: "public",      label: "Public",               role: "public",    title: "Hub, marketplace and territory pages — open to all",    reportsTo: "fan", color: "#94A3B8" },
+];
+
+// ---------------------------------------------------------------------------
+// PER-ROLE DELIVERABLES — what each stakeholder must deliver
+// ---------------------------------------------------------------------------
+
+export interface Deliverable {
+  what: string;
+  cadence: string;
+  owner: string;
+  status: "on-track" | "at-risk" | "late" | "done";
+  note?: string;
+}
+
+export interface RoleDeliverables {
+  roleId: string;
+  headline: string;
+  goal: string;
+  items: Deliverable[];
+}
+
+export const ROLE_DELIVERABLES: RoleDeliverables[] = [
+  {
+    roleId: "fan",
+    headline: "Fans deliver revenue and reach",
+    goal: "Buy merch, subscribe to artist tiers, and spread the word.",
+    items: [
+      { what: "Subscribe to at least one artist tier", cadence: "Monthly", owner: "Fan", status: "done", note: "Fan tiers: Roots $5 → Rastafari $200" },
+      { what: "Buy merch from territory marketplace", cadence: "Per drop", owner: "Fan", status: "on-track" },
+      { what: "Use AI Voice generator credits", cadence: "Anytime", owner: "Fan", status: "on-track", note: "100% of split goes to the artist" },
+      { what: "Share artist domain links (promotion)", cadence: "Ongoing", owner: "Fan", status: "on-track" },
+    ],
+  },
+  {
+    roleId: "artist",
+    headline: "Artists deliver audience and catalogue",
+    goal: "Gain fans, promote your own domain, keep catalogue and certs current.",
+    items: [
+      { what: "Grow fan base (YouTube/Spotify verified counts)", cadence: "Monthly tier review", owner: "Artist", status: "on-track", note: "Tier gating uses YT + Spotify only" },
+      { what: "Promote your RAAS domain (e.g. kabakapyramid.raas.ja)", cadence: "Ongoing", owner: "Artist", status: "on-track" },
+      { what: "Release music / rassline content", cadence: "Per release", owner: "Artist", status: "on-track" },
+      { what: "Keep territory certificates current", cadence: "Per territory", owner: "Artist", status: "on-track" },
+      { what: "Approve merch drops with manufacturer", cadence: "Per drop", owner: "Artist", status: "done" },
+      { what: "Supply Cultural API licensing inventory", cadence: "Ongoing", owner: "Artist", status: "on-track", note: "Artist keeps 100% — flat tier fee covers RAAS" },
+    ],
+  },
+  {
+    roleId: "b2b_dev",
+    headline: "B2B devs deliver licensed integrations",
+    goal: "Ship products on the Cultural API and pay tier subscriptions on time.",
+    items: [
+      { what: "Integrate Cultural API endpoints", cadence: "Per sprint", owner: "B2B Dev", status: "on-track" },
+      { what: "Pay API tier subscription on time", cadence: "Monthly", owner: "B2B Dev", status: "done", note: "Flat tier fee — RAAS takes 0% of dev revenue" },
+      { what: "Ship RAAS Records licensed releases", cadence: "Per release", owner: "B2B Dev", status: "on-track" },
+      { what: "Respect licence scope per endpoint", cadence: "Ongoing", owner: "B2B Dev", status: "on-track" },
+    ],
+  },
+  {
+    roleId: "investor",
+    headline: "Investors deliver capital on KPIs",
+    goal: "Wire each tranche when its KPI gate is verified.",
+    items: [
+      { what: "Wire tranche on verified KPI achievement", cadence: "5 tranches", owner: "Investor", status: "on-track", note: "See KPI tranche table" },
+      { what: "Attend quarterly portfolio reviews", cadence: "Quarterly", owner: "Investor", status: "done" },
+      { what: "Open enterprise / distribution intros", cadence: "Ongoing", owner: "Investor", status: "at-risk", note: "2 intros pending" },
+    ],
+  },
+  {
+    roleId: "founder",
+    headline: "CEO & Founder delivers growth",
+    goal: "Land enterprise leads, unlock tranches, keep the platform true to the mission.",
+    items: [
+      { what: "Close enterprise leads", cadence: "Monthly pipeline", owner: "Founder/CEO", status: "on-track", note: "Pipeline in Admin → Enterprise Leads" },
+      { what: "Hit KPI gates to unlock tranches", cadence: "5 gates", owner: "Founder/CEO", status: "on-track" },
+      { what: "Onboard artists and manufacturers", cadence: "Ongoing", owner: "Founder/CEO", status: "on-track" },
+      { what: "Maintain compliance (KYC/AML, PDPA, GDPR)", cadence: "Quarterly", owner: "Founder/CEO + Admin", status: "done" },
+      { what: "Keep infra online (backup & failover)", cadence: "Continuous", owner: "Admin", status: "on-track" },
+    ],
+  },
+  {
+    roleId: "archivist",
+    headline: "Archivists deliver cleared heritage",
+    goal: "Clear rights and digitize eras before anything is licensed.",
+    items: [
+      { what: "Clear rights on archive entries", cadence: "Per entry", owner: "Archivist", status: "on-track" },
+      { what: "Publish institution exhibits on schedule", cadence: "Per exhibit", owner: "Archivist", status: "on-track" },
+      { what: "Verify era metadata (1950s → today)", cadence: "Ongoing", owner: "Archivist", status: "done" },
+    ],
+  },
+];
+
+// ---------------------------------------------------------------------------
+// SUPPLIER LOGISTICS — on-time delivery board
+// ---------------------------------------------------------------------------
+
+export interface SupplierDelivery {
+  supplier: string;
+  deliverable: string;
+  due: string;
+  status: "on-time" | "at-risk" | "late" | "delivered";
+  logistics: string;
+}
+
+export const SUPPLIER_DELIVERY: SupplierDelivery[] = [
+  { supplier: "Sun Island",     deliverable: "Kabaka Pyramid tour tees — 500 units", due: "2026-11-18", status: "on-time",   logistics: "Sea freight KIN → MIA, customs pre-cleared" },
+  { supplier: "Sun Island",     deliverable: "Territory hoodie restock — 300 units", due: "2026-11-25", status: "at-risk",  logistics: "Fabric delay 3 days; air freight option quoted" },
+  { supplier: "Rebel13",        deliverable: "Limited run jackets — 120 units",      due: "2026-11-20", status: "on-time",   logistics: "Air freight, tracked, DDP" },
+  { supplier: "Twins of Twins", deliverable: "Capsule accessories — 250 units",      due: "2026-12-02", status: "on-time",   logistics: "Sea freight, arrives KIN port Dec 1" },
+  { supplier: "Kingston Printery", deliverable: "Album art prints — 1000 units",     due: "2026-11-15", status: "late",     logistics: "Printer downtime; new ETA Nov 17, expedited courier" },
+  { supplier: "Kingston Printery", deliverable: "Territory certificates batch",       due: "2026-11-22", status: "on-time",   logistics: "Secure courier to archivist for stamping" },
+];
