@@ -68,7 +68,7 @@ The existing artist territory and account pages are useful UI/route starting poi
 These are release blockers, not optional cleanup.
 
 1. **Remove client-selected privileges.** Public signup must create only the least-privileged public account. Artist onboarding may request an artist workspace, but cannot assign admin, archivist, investor or other privileged roles. Privileged promotion is an authenticated server-side administrative operation with audit logging.
-2. **Replace role-header authorization.** `X-Maze-Role` and localStorage role values are not identity proofs. Introduce server-verifiable sessions/tokens and derive user identity and permissions from verified credentials and database membership on every protected request. Keep the existing no-cookie preference as an explicit architecture constraint to resolve: a short-lived bearer token in memory avoids persistent browser storage but affects reload UX; a persistent browser token is exposed to XSS; secure HttpOnly cookies provide stronger browser protection but change the stated preference. Document and approve the chosen threat model before implementation. No design may trust a raw role header.
+2. **Separate authentication from role diagnostics.** `X-Maze-Role` is intentionally retained during development as a convenient diagnostic for probing authorization boundaries and detecting auth leakage. It is not an identity proof and must never become the production source of permissions. Introduce server-verifiable sessions/tokens and derive the real actor identity and permissions from verified credentials and database membership on every protected request. Implement the role header as an explicitly gated diagnostic override/simulation facility: enabled only in approved non-production environments, restricted to authorized testers, clearly logged with the real actor, requested simulated role, route and outcome, and rejected by default when configuration is absent or invalid. Add an unconditional production hard-deny (`NODE_ENV === "production"`) so a mis-set feature flag cannot activate it in production. Keep diagnostic role simulation distinct from authentication bypass: tests must still verify whether unauthenticated and low-privilege actors are denied. Preserve the user's no-cookie preference as an explicit architecture constraint to resolve: a short-lived bearer token in memory avoids persistent browser storage but affects reload UX; a persistent browser token is exposed to XSS; secure HttpOnly cookies provide stronger browser protection but change the stated preference. Document and approve the chosen threat model before implementation.
 3. **Disable public demo seeding.** Remove the login page's automatic `/api/seed` call. Make demo seeding development-only or require a deployment-time secret and non-public execution path. Remove hard-coded demo credentials from production UI.
 4. **Account protection.** Add email verification, rate limiting, password reset, abuse controls and stronger admin MFA before public launch. Enforce password policy and generic login error responses.
 5. **Tenant authorization.** Every artist-owned query must scope by verified membership/workspace ID. Never accept a client-provided artist ID as authorization. Add negative tests for cross-tenant reads and writes.
@@ -110,8 +110,8 @@ The paths below are proposed implementation targets. They are not claimed to exi
 | `src/app/api/auth/login/route.ts` | Issue server-verifiable session/token; use generic errors and rate limits. |
 | `src/lib/raas/auth.ts` | Separate authentication from authorization; add session lifecycle and verified identity lookup. |
 | `src/lib/raas/role.tsx` | Remove role as a client authority; retain only safe display/session state. |
-| `src/lib/raas/fetch.ts` | Send verified bearer/session credential, never a role header. |
-| `src/lib/raas/headers.ts` and protected API routes | Remove trust in `X-Maze-Role`; use shared server-side auth and policy helpers. |
+| `src/lib/raas/fetch.ts` | Send verified bearer/session credential; keep `X-Maze-Role` available only through the gated non-production diagnostic mode, never as normal authorization input. |
+| `src/lib/raas/headers.ts` and protected API routes | Use shared server-side auth and policy helpers; accept `X-Maze-Role` only through the gated diagnostic adapter in non-production, never as the real actor's authority. |
 | `src/app/api/seed/route.ts` | Remove public production seeding path or guard it as development-only. |
 | `src/app/login/page.tsx` | Remove public demo credential display and automatic seeding. |
 | `src/app/artist/page.tsx` | Load current artist workspace from authenticated membership, replacing `ARTISTS[0]`. |
@@ -312,7 +312,7 @@ The shared adapter is implemented first. The isolated adapter is implemented onl
 ## 9. Acceptance and security test matrix
 
 - Signup request with `role=admin` cannot create an admin.
-- Forged `X-Maze-Role: admin` cannot access protected APIs.
+- In normal mode, forged `X-Maze-Role: admin` cannot grant access to protected APIs.\n- In diagnostic mode, role simulation is possible only for authorized testers in approved non-production environments and is recorded in audit logs.\n- Production rejects the diagnostic header even if diagnostic environment flags are accidentally enabled.\n- Diagnostic role simulation does not bypass authentication; unauthenticated requests remain unauthenticated.
 - User A cannot read, update, delete or publish User B's artist resources by changing IDs/slugs.
 - Artist cannot use another artist's media asset ID.
 - Invalid, oversized or executable uploads are rejected.
