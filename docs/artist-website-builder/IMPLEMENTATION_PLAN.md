@@ -312,7 +312,10 @@ The shared adapter is implemented first. The isolated adapter is implemented onl
 ## 9. Acceptance and security test matrix
 
 - Signup request with `role=admin` cannot create an admin.
-- In normal mode, forged `X-Maze-Role: admin` cannot grant access to protected APIs.\n- In diagnostic mode, role simulation is possible only for authorized testers in approved non-production environments and is recorded in audit logs.\n- Production rejects the diagnostic header even if diagnostic environment flags are accidentally enabled.\n- Diagnostic role simulation does not bypass authentication; unauthenticated requests remain unauthenticated.
+- In normal mode, forged `X-Maze-Role: admin` cannot grant access to protected APIs. 
+- In diagnostic mode, role simulation is possible only for authorized testers in approved non-production environments and is recorded in audit logs. 
+- Production rejects the diagnostic header even if diagnostic environment flags are accidentally enabled. 
+- Diagnostic role simulation does not bypass authentication; unauthenticated requests remain unauthenticated.
 - User A cannot read, update, delete or publish User B's artist resources by changing IDs/slugs.
 - Artist cannot use another artist's media asset ID.
 - Invalid, oversized or executable uploads are rejected.
